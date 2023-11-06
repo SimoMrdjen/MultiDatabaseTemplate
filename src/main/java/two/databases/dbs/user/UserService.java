@@ -24,11 +24,15 @@ public class UserService {
         }
 
 
-            return
-                    repository.findAll()
-                            .stream()
-                            .map(mapper::mappUserToDto)
-                            .collect(Collectors.toList());
+        List<UserDto> dtos = repository.findAll()
+                .stream()
+                .map(mapper::mappUserToDto)
+                .collect(Collectors.toList());
+
+        DBContextHolder.clear();
+
+            return dtos;
+
         }
 
 
@@ -44,11 +48,11 @@ public class UserService {
 
    // @Transactional
     public UserDto createUser(UserDto userDto, Integer kvartal) {
-//                if ((kvartal == 4 || kvartal == 5)) {
-//            DBContextHolder.setCurrentDb(ClientNames.PGODINA);
-//        } else {
-//            DBContextHolder.setCurrentDb(ClientNames.APV);
-//        }
+                if ((kvartal == 4 || kvartal == 5)) {
+            DBContextHolder.setCurrentDb(ClientNames.PGODINA);
+        } else {
+            DBContextHolder.setCurrentDb(ClientNames.APV);
+        }
         var user = repository.save(mapper.mapDtoToUser(userDto));
         return  mapper.mappUserToDto(user);
     }

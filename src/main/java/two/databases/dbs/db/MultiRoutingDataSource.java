@@ -7,6 +7,9 @@ public class MultiRoutingDataSource
 {
     @Override
     protected Object determineCurrentLookupKey() {
-        return DBContextHolder.getCurrentDb();
+
+        return
+                DBContextHolder.getCurrentDb();
+
     }
 }
