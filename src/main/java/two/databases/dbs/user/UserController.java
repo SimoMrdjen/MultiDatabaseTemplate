@@ -31,6 +31,15 @@ public class UserController {
                 .getUser(id, kvartal));
     }
 
+    @PutMapping(value = "/{id}/{kvartal}")
+    public ResponseEntity<UserDto> updateUser(
+            @PathVariable(name = "id") Integer id,
+            @PathVariable(name = "kvartal") Integer kvartal
+    ) {
+        return ResponseEntity.ok(userService
+                .updateUser(id, kvartal));
+    }
+
     @PostMapping(value = "/{kvartal}")
     public ResponseEntity<UserDto> addUser( @RequestBody UserDto userDto,
                                             @PathVariable(name = "kvartal") Integer kvartal) throws Exception {
@@ -38,4 +47,6 @@ public class UserController {
         return ResponseEntity.ok(userService
                 .createUser(userDto, kvartal));
     }
+
+
 }
